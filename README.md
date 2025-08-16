@@ -25,14 +25,15 @@ python 01_web_app/app.py
 3. Send a file with curl:
 
 ```bash
-curl -X POST -F "file=@path/to/report.csv" http://localhost:5000/upload
+# Replace /full/path/to/report.pdf with the path to a real PDF file
+curl -X POST -F "file=@/full/path/to/report.pdf" http://localhost:5000/upload
 ```
 
 The file is saved to the `uploads/` directory. The folder is created automatically if it does not exist.
 
 ### Validation rules
 
-- Allowed extensions: `.csv` and `.pdf`
+- Allowed extensions: `.pdf` and `.txt`
 - Maximum size: 5 MB
 
 ### Responses
