@@ -19,8 +19,8 @@ A modular web application that allows users to upload files via a web interface 
 
 ## Non-Functional Requirements
 - 🖥️ Run locally via Flask for development (`flask run` or `python app.py`)
-- 💾 Store uploaded files in local path (`./storage/uploads/`)
-- 🔄 Pluggable storage layer via `storage_service.py`
+- 💾 Store uploaded files in local path (`./uploads/`)
+- 🔄 Plan for a storage abstraction layer via `services/storage_service.py`
 - ⚙️ Use `.env` file for environment configuration
 - 🛠️ Prepare for hosting on basic platforms (e.g., Render, Railway, Fly.io)
 - 🧪 Code must be testable with `pytest`
@@ -29,4 +29,3 @@ A modular web application that allows users to upload files via a web interface 
 - Python 3.11+
 - No external infrastructure (e.g., S3, Kubernetes) required initially
 - Minimal dependency stack to encourage adoption and maintainability
-

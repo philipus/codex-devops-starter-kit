@@ -9,12 +9,12 @@
 ## 🗃️ Storage
 
 - **Local File System** (default):
-  - Files (e.g., uploads) are saved to `./storage/uploads/` during development.
+  - Files (e.g., uploads) are saved to `./uploads/` during development.
   - This avoids external dependencies and simplifies testing.
   
 - **Storage Abstraction Layer**:
-  - All storage operations go through `services/storage_service.py`.
-  - Enables future support for cloud backends (e.g., S3, Azure Blob) by swapping the implementation.
+  - Long-term goal: route storage operations through `services/storage_service.py`.
+  - Enables future support for cloud backends (e.g., S3, Azure Blob) by swapping the implementation once the abstraction is in place.
 
 - **Future Enhancement**:
   - Add support for configurable storage backends using `.env`:
@@ -44,8 +44,8 @@
 
 - ✅ **Modular by Design**: Codebase structured to enable parallel work across routes, services, and components
 - 🧱 **Clear Separation of Concerns**:
-  - Route logic in `routes/`
+  - Route logic currently lives in `app.py`; migrate into `backend/routes/` as new blueprints are introduced.
   - Business logic in `services/`
   - HTML/CSS in `frontend/`
-- 🚨 **Error Handling**: Centralized with Flask’s `@errorhandler` decorators in `exceptions.py`
+- 🚨 **Error Handling**: Flask `@errorhandler` decorators defined in `app.py`, with the option to move helpers into `exceptions.py` when the surface grows
 - 🧪 **Testable Services**: Each logic layer (e.g., file handling) is isolated and independently testable

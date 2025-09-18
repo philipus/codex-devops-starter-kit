@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 
 from exceptions import ValidationError
 
-ALLOWED_EXTENSIONS = {".csv", ".pdf"}
+ALLOWED_EXTENSIONS = {".csv", ".pdf", ".txt"}
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
 
 

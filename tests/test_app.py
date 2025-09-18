@@ -42,8 +42,18 @@ def test_upload_accepts_csv(client):
     uploaded.unlink()
 
 
+def test_upload_accepts_txt(client):
+    data = {"file": (io.BytesIO(b"hello"), "note.txt")}
+    response = client.post("/upload", data=data, content_type="multipart/form-data")
+    assert response.status_code == 201
+    assert response.get_json() == {"message": "File uploaded successfully"}
+    uploaded = Path("uploads") / "note.txt"
+    assert uploaded.exists()
+    uploaded.unlink()
+
+
 def test_upload_rejects_unsupported_type(client):
-    data = {"file": (io.BytesIO(b"data"), "test.txt")}
+    data = {"file": (io.BytesIO(b"data"), "test.exe")}
     response = client.post("/upload", data=data, content_type="multipart/form-data")
     assert response.status_code == 400
     assert response.get_json() == {"error": "Unsupported file type"}
