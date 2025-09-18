@@ -1,60 +1,32 @@
 # 01_web_app/backend Agent Guide
 
 ## Purpose
-This folder contains the main web application built with Flask. It is structured for modularity and clean separation of concerns, enabling agents to work in parallel without collisions.
+Coordinate backend behaviour for the document management web app.
 
-## Folder Structure and Responsibilities
+## Current Layout
+- `../app.py`: Flask app factory with the current routes (`/`, `/upload`, `/error`) and error handlers.
+- `../services/file_service.py`: validation and persistence logic for uploads.
+- `../exceptions.py`: shared exception definitions.
+- `backend/`: reserved space for modular blueprints (`routes/`, `services/`, etc.) as the app grows.
 
-- `main.py`  
-  - 🔌 Entry point that initializes the Flask app and registers blueprints.
+## Responsibilities
+- Keep `app.py` lean by moving complex logic into dedicated modules under `backend/` or `../services/`.
+- Introduce blueprints under `backend/routes/` once a feature needs its own module.
+- Share reusable helpers under `../services/` to avoid duplication.
+- Update backend documentation (`AGENTS.md`, `README.md`) whenever structure changes.
 
-- `api/`  
-  - 📡 Route logic (Flask blueprints).  
-  - Each feature (e.g., file upload) gets its own route module.
-  - Keep route handlers thin—delegate logic to the `services/` layer.
+## Contribution Workflow
+1. Design the API surface for the feature (new route or blueprint).
+2. Implement request handling in `app.py` or a blueprint under `backend/routes/`.
+3. Add supporting business logic in `../services/` and custom errors in `../exceptions.py` if required.
+4. Extend tests in `tests/` to cover the behaviour.
+5. Run `pytest` and update docs as needed.
 
-- `services/`  
-  - 🧠 Business logic and orchestration.
-  - Handle validation, computation, file processing, etc.
-  - Functions should be testable and avoid side effects.
-
-- `core/`  
-  - ⚙️ Configuration, constants, and utility functions.
-  - Helps centralize app-wide settings and avoid hardcoding.
-
-- `errors/`  
-  - 🚨 Custom exception classes and error handling.
-  - Add new exceptions consistently with existing patterns.
-
-- `models/` *(Optional)*  
-  - 🗂️ Pydantic schemas or future ORM models.
-
-## Agent Guidelines
-
-- 👣 Respect separation of concerns:
-  - `api/` for routes only.
-  - `services/` for logic.
-  - `core/` for config.
-- ✅ Add/update unit tests for all new `services/` functions or `api/` routes.
-- 🧪 Run `pytest` to validate changes.
-- 🚫 Avoid global state unless placed in `core/`.
-- 🧹 Format Python code with `black`.
-- 📄 Keep `README.md` and `AGENTS.md` up to date after changes.
-- 🧰 Use `npx markdownlint README.md` to lint Markdown files.
-
-## Example Contribution Workflow
-
-1. Create or update a route in `api/`.
-2. Add supporting logic in `services/`.
-3. Add custom exceptions in `errors/` if needed.
-4. Add or update tests in `tests/`.
-5. Update documentation in `README.md`.
-
-## Naming Conventions
-
-- Use `snake_case` for files and function names.
-- Name route files after the domain they handle (e.g., `upload.py`, `auth.py`).
+## Quality Checklist
+- Run `pytest` from the project root.
+- Format Python files with `black`.
+- Lint Markdown updates with `npx markdownlint README.md`.
+- Ensure uploads created during tests are cleaned up.
 
 ## Notes
-
-This folder acts as the **backend** of the web application. Frontend-related logic belongs in `01_web_app/frontend/`.
+This directory is intentionally light today; expand it organically as features demand more structure.

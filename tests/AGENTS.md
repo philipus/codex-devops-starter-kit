@@ -1,29 +1,27 @@
 # Test Guide
 
 ## Purpose
-This folder contains automated tests to verify the functionality and stability of the application.
+This folder contains automated tests that verify the Flask file-upload application remains stable.
 
-## Agent Responsibilities
+## Scope
+- Integration-style tests targeting `01_web_app/app.py` routes and error handlers.
+- Unit tests for reusable logic inside `01_web_app/services/` and helpers.
 
-- Write tests for every major feature added in `01_web_app/` (especially `api/` and `services/`).
-- Use the `pytest` framework. Tests must be runnable via:
+## Responsibilities
+- Mirror the backend structure: when a new blueprint or service module is added, create matching tests.
+- Use `pytest` fixtures to manage app and client setup.
+- Keep tests deterministic and clean up artefacts written to `uploads/`.
+- Focus on business rules such as validation, responses, and error handling.
 
-  ```bash
-  pytest
-  ```
+## Workflow
+1. Write or update tests alongside backend changes.
+2. Run `pytest` from the repository root.
+3. Share common setup in fixtures (`conftest.py`) when appropriate.
+4. Update testing documentation when structure or tooling changes.
 
-  from the project root.
-
-- Organize tests by domain or module, mirroring the structure of `01_web_app/backend/`.
-- Use the naming convention: `test_*.py`.
-- Ensure tests are self-contained:
-  - Clean up any temporary files or generated artifacts.
-  - Avoid relying on shared mutable state.
-- Focus on testing business logic, API behavior, and edge cases.
-- Do not test internal framework mechanics (e.g., `__pycache__`, Flask internals).
+## Naming Conventions
+- Test modules follow `test_*.py`.
+- Helper modules use `snake_case`.
 
 ## Notes
-
-- Consider using fixtures for reusable setup.
-- Run all tests before opening a pull request.
-- Expand test coverage as features grow.
+Aim for thorough coverage of validation paths and extend the suite as storage backends or routes expand.
